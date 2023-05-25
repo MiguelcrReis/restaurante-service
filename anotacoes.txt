@@ -1,4 +1,19 @@
 ### Curso de Microsserviços e .NET6: implementando a comunicação
 ________________________________________________________________
 
+## Capítulo 01 - Requisições síncronas
 
+Para um envio HTTP:
+	O conteúdo devidamente serializado.
+	Endereço de destino.
+	
+
+## Capítulo 02 - Dockernizando apps .NET
+
+# Por que usar o Docker?
+	- Docker facilitará o processo de entrega e deploy visto que ele tornará nossa aplicação mais fácil de ser portada e executada em diferentes sistemas.
+	- Maior controle de versionamento (Através das imagens, conseguiremos criar e incrementar versões de imagens).
+	- Maior controle de conflito de portas (Como nossas aplicações serão executadas dentro de containers, o controle sobre a execução de portas será maior.).
+	
+
+RUN dotnet restore -> Sem essa etapa, nossas dependências não serão resolvidas para nossa aplicação executar sem problemas.
