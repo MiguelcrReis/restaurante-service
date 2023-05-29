@@ -7,6 +7,7 @@ Para um envio HTTP:
 	O conteúdo devidamente serializado.
 	Endereço de destino.
 	
+________________________________________________________________
 
 ## Capítulo 02 - Dockernizando apps .NET
 
@@ -17,3 +18,31 @@ Para um envio HTTP:
 	
 
 RUN dotnet restore -> Sem essa etapa, nossas dependências não serão resolvidas para nossa aplicação executar sem problemas.
+
+________________________________________________________________
+
+## Capítulo 03 - Otimizando e testando
+
+# Aplicando multi-stage build
+
+	# multi-stage build -> Etapas intermediárias são usadas para construir o necessário que será passado apenas para a imagem final.
+
+		FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+		WORKDIR /app
+		COPY *.csproj ./
+		RUN dotnet restore
+		COPY . ./
+		RUN dotnet publish -c Release -o out
+
+		FROM mcr.microsoft.com/dotnet/aspnet:6.0
+		WORKDIR /app
+		COPY --from=build /app/out .     
+		ENTRYPOINT [ "dotnet", "ItemService.dll" ]
+		
+	Este exemplo está declarando a criação de duas Images no mesmo Dockerfile.
+	Onde o primeiro é a Image base, que irá contruir a aplicação no container, e o segundo irá ser usado para colocar a aplicação em execução.
+		app/out é o app "buildado"
+		
+		COPY --from=build /app/out . -> Copia a saida da image de build para a nova image gerada usar como base.
+		
+	Utilizando este método, é economizado mais espaço, por gerar images mais leves, por não armazenarem todos os componentes de build em camadas da image.
