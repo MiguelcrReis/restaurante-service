@@ -46,3 +46,17 @@ ________________________________________________________________
 		COPY --from=build /app/out . -> Copia a saida da image de build para a nova image gerada usar como base.
 		
 	Utilizando este método, é economizado mais espaço, por gerar images mais leves, por não armazenarem todos os componentes de build em camadas da image.
+	
+	
+	No projeto de exemplo, estavamos usando um banco mysql local. Porém, para trabalhar com containers, é ncessário ter um banco que rode em um container também:
+	
+	docker run --name=mysql -e MYSQL_ROOT_PASSWORD=Dev@0258 -d mysql:5.6
+	
+	Comando para executar um container mysql.
+	
+	Após criar o container mysql, usamos o comando docker inspect [id-container] para verficiar o IPAddress do mesmo.
+	Agora então, vamos alterar a string de conexão para buscar o server da aplicação, no ip do container mysql:
+		"ConnectionStrings": {
+    "RestauranteConnection": "server=172.17.0.3;database=restaurantedb;user=root;password=root"
+	
+	
