@@ -59,4 +59,12 @@ ________________________________________________________________
 		"ConnectionStrings": {
     "RestauranteConnection": "server=172.17.0.3;database=restaurantedb;user=root;password=root"
 	
+	Configurar a conexão entre os container itemservice e restaurante service:
+	"ItemService": "http://172.17.0.4/api/item/restaurante"
+	
+	Pegando o endereço do container do itemservice e inserindo na variaval de ambiente "ItemService" do arquivo de configuração do restauranteservie.
+	
+	docker logs -f id-container -> Exibe os logs gerados pelo container.
+	
+	
 	
