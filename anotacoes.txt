@@ -56,7 +56,7 @@ ________________________________________________________________
 	
 	Após criar o container mysql, usamos o comando docker inspect [id-container] para verficiar o IPAddress do mesmo.
 	Agora então, vamos alterar a string de conexão para buscar o server da aplicação, no ip do container mysql:
-		"ConnectionStrings": {
+		"ConnectionStrings":  {
     "RestauranteConnection": "server=172.17.0.3;database=restaurantedb;user=root;password=root"
 	
 	Configurar a conexão entre os container itemservice e restaurante service:
@@ -65,6 +65,24 @@ ________________________________________________________________
 	Pegando o endereço do container do itemservice e inserindo na variaval de ambiente "ItemService" do arquivo de configuração do restauranteservie.
 	
 	docker logs -f id-container -> Exibe os logs gerados pelo container.
+	
+	
+	Ao invés de usar os IP's para fazer a comunicação entre containers e bancos, vamos usar os nomes dos serviços, pois IP's são dinâmicos e podem ser alterados. 
+	
+	- Para isso, devemos criar um rede com o driver bridge.
+	- Depois colocamos os containers em execução passando a network criada.
+	
+	docker network create --driver bridge restaurante-bridge
+	
+	docker run --name item-service -d -p 8080:80 --network restaurante-bridge itemservice:1.1
+	
+	docker run --name=mysql -e MYSQL_ROOT_PASSWORD=root -d --network restaurante-bridge mysql:5.6
+	
+	docker run --name restaurante-service -p 8081:80 --network restaurante-bridge restauranteservice:1.4
+	
+	
+	- Para acessar o container com o mysql.
+	docker exec -it mysql bash
 	
 	
 	
