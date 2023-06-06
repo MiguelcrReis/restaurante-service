@@ -88,7 +88,21 @@ ________________________________________________________________
 	
 ________________________________________________________________
 
-## Capítulo 04 - Requisições assíncronas
+## Capítulo 04 - Requisições Assíncronas
+
+	# Beneficios: 
+	* Autonomia maior por não necessitar aguardar o retorno do serviço posterior.
+	* Vários serviços podem consumir o mesmo serviço, já que as requisições entre eles serão enfileiradas.
+	
+	
+	# RabbitMQ -> É um sistema de mensageria, utilizado para comunicação entre serviços.
+	
+	# Sintaxe correta para abertura de conexão entre uma aplicação .NET e o RabbitMQ:
+		new ConnectionFactory() { HostName = “enderecoParaOHost”, Port = 1234 }.CreateConnection();`
+
+	
+	- ExchangeType.Fanout -> Define qual a Exchange do channel.
+	- AMQP -> Procolo de comunicação.
 
 	- Requisições assíncronas são mais difíceis de implementar, porém com elas temos maior confiabilidade em nossa comunicação.
 
@@ -106,4 +120,5 @@ ________________________________________________________________
 			Devemos utilizar o canal aberto como intermediário para vincular uma fila.
 			
 	
-	# Para o fluxo do projeto de exemplo, foi necessário definir um serviço que fique em execução em segundo plano, um BackgroundService.
+	# Para o fluxo do projeto de exemplo, foi necessário definir um serviço que fique em execução em segundo plano, um BackgroundService. 
+	Devemos sobrescrever a implementação do método ExecuteAsync().
