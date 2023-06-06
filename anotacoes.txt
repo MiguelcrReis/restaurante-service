@@ -86,3 +86,12 @@ ________________________________________________________________
 	
 	
 	
+________________________________________________________________
+
+## Capítulo 03 - Requisições assíncronas
+
+	- Requisições assíncronas são mais difíceis de implementar, porém com elas temos maior confiabilidade em nossa comunicação.
+
+
+	# Como fazer a publicação de algum dado para o RabbitMQ?
+		- Devemos utilizar o método BasicPublish() através do canal aberto com o RabbitMQ.
