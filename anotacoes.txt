@@ -88,10 +88,22 @@ ________________________________________________________________
 	
 ________________________________________________________________
 
-## Capítulo 03 - Requisições assíncronas
+## Capítulo 04 - Requisições assíncronas
 
 	- Requisições assíncronas são mais difíceis de implementar, porém com elas temos maior confiabilidade em nossa comunicação.
 
 
 	# Como fazer a publicação de algum dado para o RabbitMQ?
 		- Devemos utilizar o método BasicPublish() através do canal aberto com o RabbitMQ.
+		
+		
+________________________________________________________________
+
+## Capítulo 05 - Consumindo dados de filas
+
+	# De qual forma podemos especificar em qual fila nossa aplicação que irá consumir deve se conectar?
+		- Devemos utilizar o método QueueBind() através do canal aberto com o RabbitMQ.
+			Devemos utilizar o canal aberto como intermediário para vincular uma fila.
+			
+	
+	# Para o fluxo do projeto de exemplo, foi necessário definir um serviço que fique em execução em segundo plano, um BackgroundService.
