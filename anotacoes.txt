@@ -122,3 +122,18 @@ ________________________________________________________________
 	
 	# Para o fluxo do projeto de exemplo, foi necessário definir um serviço que fique em execução em segundo plano, um BackgroundService. 
 	Devemos sobrescrever a implementação do método ExecuteAsync().
+	
+	
+	# Criar os containers:
+	
+		docker build -t restauranteservice:1.5 .
+		docker build -t itemservice:1.2 .
+		
+	# Executar os containers:
+		
+		docker run -d --hostname rabbitmq-service --name rabbitmq-service --network restaurante-bridge rabbitmq:3-management
+		
+		docker run --name restaurante-service -d -p 8081:80 --network restaurante-bridge restauranteservice:1.5
+		
+		docker run --name item-service -d -p 8080:80 --network restaurante-bridge itemservice:1.2
+	
